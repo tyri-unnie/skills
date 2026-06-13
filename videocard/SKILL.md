@@ -29,6 +29,41 @@ description: 뉴스·홍보용 '영상카드'(4:5 1080×1350, 상단 3:2 영상 
 FB는 피드에서 영상을 ~5% 확대 표시 → **가장자리 고정 요소는 상하좌우 ≥92px 안쪽**에 배치.
 (라벨 left:92, 배지 right:92, 패널 padding 48px 92px 64px — 스크립트에 반영됨)
 
+## 폰트 (Pretendard — 전 요소 공통)
+
+- **패밀리**: `"Pretendard", sans-serif` + `-webkit-font-smoothing: antialiased`
+- **로딩**(CDN, 네트워크 필요):
+  ```html
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.css">
+  ```
+- **렌더 전 대기 필수**: Playwright에서 `await page.evaluate(() => document.fonts.ready)` 후 캡처/녹화 (폰트 미로딩 시 시스템폰트로 깨짐).
+- 한글 자막 PNG(영상 합성용)도 동일하게 Pretendard 사용 — ffmpeg drawtext가 한글 미지원이라 HTML→PNG로 만들어 overlay.
+
+### 타이포그래피 스펙 (하단 패널, gen-videocard.cjs 기준)
+
+| 요소 | 크기 | 굵기 | 색 | 비고 |
+|---|---|---|---|---|
+| 상단 라벨 (AI 솔로프리너 \| 타이리 언니) | 38px | 800 | #fff | text-shadow 0 2px 12px rgba(0,0,0,.45), 구분자 `\|`=#9DB4F0 |
+| 배지 (오늘의 AI #N) | 30px | 800 | #fff | 배경 #2B50E6, radius 30px, padding 8px 26px |
+| 섹션라벨 (오늘의 AI 소식) | 29px | 800 | #2B50E6 | |
+| 날짜 | 25px | 700 | #6b7088 | |
+| **제목** | **58px** | **900** | **#1A1E38** | line-height 1.12, letter-spacing −.035em |
+| 설명(desc, 옵션) | 33px | 600 | #2b3050 | line-height 1.4 |
+| 개조식 불릿 | 32px | 600 | #2f3550 | line-height 1.36, letter-spacing −.01em |
+| 불릿 강조 `<b>` | 32px | **800** | #1A1E38 | 수치·핵심어에만 |
+| 출처(푸터) | 24px | 600 | #6b7088 | 앞에 56×9px 블루 바 |
+
+### 브랜드 컬러
+
+| 토큰 | 값 | 용도 |
+|---|---|---|
+| 액센트 블루 `AC` | `#2B50E6` | 리본·배지·불릿 점·바 |
+| 잉크 `INK` | `#1A1E38` | 제목·강조 텍스트 |
+| 서브 `SUB` | `#6b7088` | 날짜·출처 |
+| 패널 배경 | 라이트 그라데이션 (#EEF0FB→#F4F1FB→#EAF0FA + 라벤더/블루 radial) | 하단 패널 |
+| 카드 베이스 | `#121426` | ffmpeg color base (상하단 사이 이음새) |
+| 인디고 소프트 | `#8E91EC` | 보조 포인트 |
+
 ## footage 원칙 (콘텐츠가 생명)
 
 1. **공식 데모영상 우선** — 제품이 실제 동작/산출하는 역동적 장면을 구간(seg)으로 잘라 사용.
