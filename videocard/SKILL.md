@@ -118,6 +118,13 @@ node scripts/gen-videocard-strip.cjs <out.mp4> <폴더>     # 폴더 내 *-card.
 - **흰 배경 + 카드 둥근 모서리 + 카드 사이 여백**(스레드 캐러셀 느낌). 모서리는 ffmpeg `geq` 알파마스크(translate 없음).
 - 옵션(env): `CARD_W`(기본540) `GAP`(20) `MARGIN`(20) `RADIUS`(26) `BG`(white) `DUR`(7). 예) 5장 기본=2820×716.
 
+### 6) `scripts/gen-web-capture.mjs` — 웹페이지 캡처 (footage 사다리 4단계)
+```bash
+node scripts/gen-web-capture.mjs <url> <out.png> [viewportW=1280] [viewportH=2200] [waitMs=8000]
+```
+- 공식 영상·실이미지가 없을 때, **텍스트 살아있는 공식 페이지/릴리스노트/깃헙/HuggingFace 등을 캡처**해 footage로. cheliped `scratch` 프로필(헤드리스), 쿠키배너 자동닫기.
+- 캡처 후 **중요 영역을 ffmpeg crop**(예: 히어로 배너·벤치마크 차트·비교표) → **1080×720 다크캔버스에 레터박스**(`scale=1040:680:force_original_aspect_ratio=decrease,pad=1080:720:(ow-iw)/2:(oh-ih)/2:0x0E1024`) → `gen-videocard-montage.cjs`의 `stills`로 컷전환. (검증: Kimi K2.7-Code 카드 = 공식 제품페이지 캡처만으로 제작, AI생성 0)
+
 공통 환경: `VC_DIR`로 기준 폴더 지정 가능(기본=스크립트 위치). 의존성: node + playwright(chromium) + ffmpeg (+ yt-dlp).
 
 ## 합성 레시피 (참고 — 스크립트에 내장)
