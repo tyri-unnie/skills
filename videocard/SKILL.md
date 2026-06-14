@@ -122,8 +122,10 @@ node scripts/gen-videocard-strip.cjs <out.mp4> <폴더>     # 폴더 내 *-card.
 ```bash
 node scripts/gen-web-capture.mjs <url> <out.png> [viewportW=1280] [viewportH=2200] [waitMs=8000]
 ```
-- 공식 영상·실이미지가 없을 때, **텍스트 살아있는 공식 페이지/릴리스노트/깃헙/HuggingFace 등을 캡처**해 footage로. cheliped `scratch` 프로필(헤드리스), 쿠키배너 자동닫기.
-- 캡처 후 **중요 영역을 ffmpeg crop**(예: 히어로 배너·벤치마크 차트·비교표) → **1080×720 다크캔버스에 레터박스**(`scale=1040:680:force_original_aspect_ratio=decrease,pad=1080:720:(ow-iw)/2:(oh-ih)/2:0x0E1024`) → `gen-videocard-montage.cjs`의 `stills`로 컷전환. (검증: Kimi K2.7-Code 카드 = 공식 제품페이지 캡처만으로 제작, AI생성 0)
+- 공식 영상·실이미지가 없을 때, **텍스트 살아있는 공식 페이지/릴리스노트/깃헙/HuggingFace 등을 캡처**해 footage로. cheliped `scratch` 프로필(헤드리스), 쿠키배너 자동닫기. **표/차트가 잘리면 뷰포트 폭을 넓혀(예 1600) 재캡처**(컬럼 안 잘리게).
+- 캡처 후 **중요 영역을 ffmpeg crop**(히어로 배너·벤치 차트·비교표 등) → ★**상단 미디어는 여백 없이 꽉 채운다(cover crop+확대)**: `scale=1080:720:force_original_aspect_ratio=increase,crop=1080:720`(필요시 `:x:y`로 좌측정렬해 핵심 컬럼 우선). **레터박스(pad)·디자인 카드 프레임 금지 — 사용자: "여백 너무 많다, 여백없이 크롭+확대"**(2026-06-14). 표는 폭이 넓으니 핵심 컬럼(Kimi vs 경쟁) 쪽으로 크롭, 데이터 전체는 하단 불릿이 전달.
+- ★**카드마다 다른 자산**(같은 이미지 반복 금지 — 사용자 불만). 예: card1=히어로배너 / card2=벤치차트 / card3=구조표 / card4=비교표. 각 카드 `stills`에 고유 1장(=젠틀 줌) 또는 서로 다른 2~3장.
+- (검증: Kimi K2.7-Code 카드 = 공식 제품페이지 캡처만으로 제작, AI생성 0, 풀블리드)
 
 공통 환경: `VC_DIR`로 기준 폴더 지정 가능(기본=스크립트 위치). 의존성: node + playwright(chromium) + ffmpeg (+ yt-dlp).
 
