@@ -26,11 +26,11 @@ const css = `*{box-sizing:border-box;margin:0;padding:0;}
   .top{position:absolute;top:0;left:0;width:${W}px;height:${TOPH}px;background:transparent;}
   /* 상단 영상 위 가독성 스크림 + 라벨 */
   .vidscrim{position:absolute;top:0;left:0;right:0;height:150px;background:linear-gradient(to bottom, rgba(16,18,38,.55) 0%, rgba(16,18,38,0) 100%);}
-  .toplabel{position:absolute;top:68px;left:92px;display:flex;align-items:center;gap:13px;color:#fff;font-size:38px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.45);}
+  .toplabel{position:absolute;top:68px;left:120px;display:flex;align-items:center;gap:13px;color:#fff;font-size:38px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.45);}
   .toplabel .sep{color:#9DB4F0;font-weight:700;}
-  .badge{position:absolute;top:66px;right:92px;background:${AC};color:#fff;font-size:30px;font-weight:800;padding:8px 26px;border-radius:30px;box-shadow:0 10px 26px rgba(43,80,230,.4);}
+  .badge{position:absolute;top:66px;right:120px;background:${AC};color:#fff;font-size:30px;font-weight:800;padding:8px 26px;border-radius:30px;box-shadow:0 10px 26px rgba(43,80,230,.4);}
   /* 하단 텍스트 패널 — FB 오버스캔 대비 안전여백(좌우 92px, 하단 64px) */
-  .panel{position:absolute;left:0;top:${TOPH}px;width:${W}px;height:${BH}px;background:${BG};padding:48px 92px 64px;display:flex;flex-direction:column;}
+  .panel{position:absolute;left:0;top:${TOPH}px;width:${W}px;height:${BH}px;background:${BG};padding:48px 120px 64px;display:flex;flex-direction:column;}
   .ribbon{position:absolute;top:-3px;left:0;width:100%;height:6px;background:${AC};}
   .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
   .seclabel{font-size:29px;font-weight:800;color:${AC};}

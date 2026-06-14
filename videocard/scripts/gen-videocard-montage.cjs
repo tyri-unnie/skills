@@ -6,7 +6,7 @@
 const { chromium } = require('playwright');
 const { execSync } = require('child_process');
 const path = require('path'), fs = require('fs');
-const DIR = process.env.VC_DIR || __dirname;   // 이식성: VC_DIR로 기준 폴더(스틸/출력 경로 기준) 지정
+const DIR = __dirname;
 const itemsPath = (() => { const a = process.argv[2] || 'output/montage-items.json'; return a.startsWith('/') ? a : path.join(DIR, a); })();
 const data = JSON.parse(fs.readFileSync(itemsPath, 'utf8'));
 const OUT = path.join(DIR, 'output', data.out_dir || 'montage');
@@ -46,10 +46,10 @@ ${kf}
 .flash{position:absolute;top:0;left:0;width:1080px;height:${TOPH}px;background:#fff;opacity:0;z-index:3;animation:fl ${DUR}ms linear forwards;}
 ${flashKf}
 .vidscrim{position:absolute;top:0;left:0;right:0;height:150px;background:linear-gradient(to bottom, rgba(16,18,38,.5) 0%, rgba(16,18,38,0) 100%);z-index:4;}
-.toplabel{position:absolute;top:46px;left:92px;display:flex;align-items:center;gap:13px;color:#fff;font-size:38px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.5);z-index:5;}
+.toplabel{position:absolute;top:46px;left:120px;display:flex;align-items:center;gap:13px;color:#fff;font-size:38px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.5);z-index:5;}
 .toplabel .sep{color:#9DB4F0;font-weight:700;}
-.badge{position:absolute;top:44px;right:92px;background:${AC};color:#fff;font-size:30px;font-weight:800;padding:8px 26px;border-radius:30px;box-shadow:0 10px 26px rgba(43,80,230,.4);z-index:5;}
-.panel{position:absolute;left:0;top:${TOPH}px;width:1080px;height:${BH}px;background:${PANEL_BG};padding:48px 92px 64px;display:flex;flex-direction:column;}
+.badge{position:absolute;top:44px;right:120px;background:${AC};color:#fff;font-size:30px;font-weight:800;padding:8px 26px;border-radius:30px;box-shadow:0 10px 26px rgba(43,80,230,.4);z-index:5;}
+.panel{position:absolute;left:0;top:${TOPH}px;width:1080px;height:${BH}px;background:${PANEL_BG};padding:48px 120px 64px;display:flex;flex-direction:column;}
 .ribbon{position:absolute;top:-3px;left:0;width:100%;height:6px;background:${AC};}
 .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
 .seclabel{font-size:29px;font-weight:800;color:${AC};}.date{font-size:25px;font-weight:700;color:${SUB};}
