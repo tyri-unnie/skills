@@ -106,6 +106,15 @@ items.json: `{date, out_dir, items:[{idx, slug, title, bullets, src, stills:[이
 - 공식 역동 영상이 없을 때 권장. 카드당 `stills` 여러 장(보통 3장)을 **~2.3초씩 컷전환**(opacity 컷 + 은은한 `scale` 1.05→1.13, **translate 없음=떨림 없음**) + 컷 경계 화이트 플래시.
 - 실사 스틸과 주제 일러스트를 교차하면 효과적. Playwright로 상단 몽타주+하단 패널을 한 번에 렌더(7초/카드).
 
+### 5) `scripts/gen-videocard-strip.cjs` — 여러 카드를 '횡으로 긴 한 영상'으로 (스레드 캐러셀 미리보기 스타일)
+```bash
+node scripts/gen-videocard-strip.cjs <out.mp4> <card1.mp4> <card2.mp4> ...
+node scripts/gen-videocard-strip.cjs <out.mp4> <폴더>     # 폴더 내 *-card.mp4 파일명 정렬순
+```
+- 4:5 카드영상 N장을 가로로 이어붙여 **모든 카드 동시 재생**되는 긴 영상 1개 생성(미리보기·예고용).
+- **흰 배경 + 카드 둥근 모서리 + 카드 사이 여백**(스레드 캐러셀 느낌). 모서리는 ffmpeg `geq` 알파마스크(translate 없음).
+- 옵션(env): `CARD_W`(기본540) `GAP`(20) `MARGIN`(20) `RADIUS`(26) `BG`(white) `DUR`(7). 예) 5장 기본=2820×716.
+
 공통 환경: `VC_DIR`로 기준 폴더 지정 가능(기본=스크립트 위치). 의존성: node + playwright(chromium) + ffmpeg (+ yt-dlp).
 
 ## 합성 레시피 (참고 — 스크립트에 내장)
